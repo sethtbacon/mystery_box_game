@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize game variables
     let players = [
-        { name: 'Seth', points: 100, boxesWon: 0 },
-        { name: 'Brittney', points: 100, boxesWon: 0 },
+        { name: 'Player 1', points: 100, boxesWon: 0 },
+        { name: 'Player 2', points: 100, boxesWon: 0 },
         { name: 'Player 3', points: 100, boxesWon: 0 },
         { name: 'Player 4', points: 100, boxesWon: 0 },
         { name: 'Player 5', points: 100, boxesWon: 0 },
