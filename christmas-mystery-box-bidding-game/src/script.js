@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 box.bidAmount = bidAmount;
                 updateScoreboard();
                 updateBoxButtons();
+                updateBoxWinners();
                 document.getElementById('sell-box-form').style.display = 'none';
                 document.getElementById('sold-box-details').style.display = 'block';
                 document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
@@ -154,6 +155,22 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Invalid bid amount or insufficient points.');
         }
+    }
+
+    // Function to update the box winners table
+    function updateBoxWinners() {
+        const boxWinnersBody = document.getElementById('box-winners-body');
+        boxWinnersBody.innerHTML = '';
+        boxes.forEach(box => {
+            const row = document.createElement('tr');
+            const boxNumberCell = document.createElement('td');
+            const winnerCell = document.createElement('td');
+            boxNumberCell.innerText = `Box ${box.number}`;
+            winnerCell.innerText = box.sold ? box.winningBidder : '';
+            row.appendChild(boxNumberCell);
+            row.appendChild(winnerCell);
+            boxWinnersBody.appendChild(row);
+        });
     }
 
     // Function to reset the game
@@ -164,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetTimer();
         updateScoreboard();
         updateBoxButtons();
+        updateBoxWinners();
         document.getElementById('sell-box-form').style.display = 'none';
         document.getElementById('sold-box-details').style.display = 'none';
     }
@@ -177,5 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start the game
     updateScoreboard();
+    updateBoxWinners();
     startBiddingRound(currentBox);
 });
