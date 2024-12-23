@@ -138,6 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const bidAmount = parseInt(document.getElementById('bid-amount').value, 10);
         const player = players.find(p => p.name === winningBidder);
         if (player && bidAmount > 0 && bidAmount <= player.points) {
+            if (player.boxesWon >= 2) {
+                alert(`${player.name} has already won 2 boxes and cannot win more.`);
+                return;
+            }
             player.points -= bidAmount;
             player.boxesWon += 1;
             const box = boxes.find(b => b.number === currentBox);
