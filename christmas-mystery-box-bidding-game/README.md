@@ -1,41 +1,58 @@
 # Christmas Mystery Box Bidding Game
 
-## Overview
-The Christmas Mystery Box Bidding Game is an engaging and festive game designed for 7 participants. Players use bidding points to bid on mystery boxes, creating a fun and competitive atmosphere. The game is designed to be played in approximately 20 minutes.
+Welcome to the Christmas Mystery Box Bidding Game! This festive game is designed to bring excitement and fun to your holiday gatherings. Players bid on mystery boxes filled with surprises, using their points wisely to win up to two boxes each. The game includes a timer, a scoreboard, and a list of box winners to keep track of the action.
+
+## Game Rules
+
+1. **Starting Points**: Each participant starts with 100 bidding points.
+2. **Bidding Process**: Bids are written on paper and revealed at the end of the timer.
+3. **Winning Limit**: Participants can win up to 2 boxes each.
+4. **Tie Breaker**: In case of a tie, a Christmas trivia question will be asked.
 
 ## Features
-- Each participant starts with 100 bidding points.
-- Bidding rounds last for 1 minute per box.
-- Bids are written on paper and revealed at the end of each timer.
-- Participants can win up to 2 boxes each.
-- Tie-breaker mechanism using Christmas trivia questions.
-- Live scoreboard displaying remaining points and current bids.
-- Countdown timer for each bidding round.
-- Display of mystery boxes with hints about their contents.
-- Background holiday music and festive visuals.
-- Game rules and guidelines displayed throughout the game.
-- Celebratory animations for announcing winners.
-- Trivia or fun facts during breaks between bidding rounds.
 
-## Files
-- **src/index.html**: Contains the HTML structure of the game.
-- **src/styles.css**: Contains the CSS styles for a festive look.
-- **src/script.js**: Contains the JavaScript logic for game functionality.
-- **assets/music/background-music.mp3**: Background music for the game.
-- **assets/images/festive-background.jpg**: Festive background image for the game display.
-- **README.md**: Documentation for the project.
-- **package.json**: Configuration file for npm dependencies and scripts.
+- **Timer**: A countdown timer to manage the bidding rounds.
+- **Scoreboard**: Displays the current points and boxes won by each player.
+- **Box Winners**: A table that lists the boxes and the players who won them.
+- **Reset Game**: A button to reset the game and start over.
 
 ## How to Play
-1. Set up the game by ensuring all files are in place.
-2. Open `src/index.html` in a web browser to start the game.
-3. Each player writes their bids on paper during the bidding rounds.
-4. After the timer ends, reveal the bids and determine the winners.
-5. Use the tie-breaker trivia questions if necessary.
-6. Enjoy the festive atmosphere with background music and visuals!
+
+1. **Start the Game**: Click the "Start" button to begin the timer for the bidding round.
+2. **Place Bids**: Players write their bids on paper and reveal them when the timer ends.
+3. **Mark Box as Sold**: Select the winning bidder and enter the bid amount, then click "Mark as Sold".
+4. **Track Progress**: The scoreboard and box winners table will update automatically.
+5. **Reset Game**: Click the "Reset Game" button to start a new game.
 
 ## Installation
-To run the game locally, clone the repository and open `src/index.html` in your preferred web browser. Ensure that you have a local server running if you encounter issues with loading resources.
 
-## Acknowledgments
-This game is inspired by the spirit of Christmas and the joy of giving. Enjoy the playful competition and have fun!
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/christmas-mystery-box-bidding-game.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd christmas-mystery-box-bidding-game
+    ```
+3. Open `index.html` in your web browser to start the game.
+
+## Project Structure
+
+- `index.html`: The main HTML file for the game.
+- `styles.css`: The CSS file for styling the game.
+- `script.js`: The JavaScript file for game logic.
+- `assets/images/festive-background.jpeg`: The background image for the game.
+
+## Contributing
+
+We welcome contributions to improve the game! If you have suggestions or find any issues, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- Background image from [source](https://tse4.mm.bing.net/th?id=OIG3.DfSmWCR5NCmI85zbHgnk&pid=ImgGn).
+
+Enjoy the game and have a Merry Christmas!
