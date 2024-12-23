@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('box-number').innerText = box;
         document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
         updateScoreboard();
+        updateBoxButtons();
     }
 
     // Function to start the timer
@@ -80,25 +81,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Function to update box buttons
+    function updateBoxButtons() {
+        let boxButtonsContainer = document.getElementById('box-buttons-container');
+        boxButtonsContainer.innerHTML = '';
+        for (let i = 1; i <= totalBoxes; i++) {
+            let button = document.createElement('button');
+            button.innerText = `Box ${i}`;
+            button.classList.add('box-button');
+            if (i === currentBox) {
+                button.classList.add('selected');
+            }
+            button.addEventListener('click', () => {
+                currentBox = i;
+                startBiddingRound(currentBox);
+            });
+            boxButtonsContainer.appendChild(button);
+        }
+    }
+
     // Event listeners for timer buttons
     document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
-
-    // Event listeners for box navigation buttons
-    document.getElementById('prev-box-btn').addEventListener('click', () => {
-        if (currentBox > 1) {
-            currentBox--;
-            startBiddingRound(currentBox);
-        }
-    });
-
-    document.getElementById('next-box-btn').addEventListener('click', () => {
-        if (currentBox < totalBoxes) {
-            currentBox++;
-            startBiddingRound(currentBox);
-        }
-    });
 
     // Start the game
     updateScoreboard();
