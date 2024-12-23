@@ -8,17 +8,18 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>Christmas Mystery Box Bidding Game</h1>
+        <h1 id="title">Christmas Mystery Box Bidding Game</h1>
         <div id="scoreboard">
             <h2>Scoreboard</h2>
             <!-- Scoreboard content will be dynamically generated -->
         </div>
         <div id="timer">
             <h2>Time Remaining: <span id="countdown">60</span> seconds</h2>
-            <button id="start-btn">Start</button>
-            <button id="pause-btn">Pause</button>
-            <button id="stop-btn">Stop</button>
-            <button id="reset-btn">Reset</button>
+            <div id="button-container">
+                <button id="start-pause-btn">Start</button>
+                <button id="stop-btn">Stop</button>
+                <button id="reset-btn">Reset</button>
+            </div>
         </div>
         <div id="box-display">
             <h2>Mystery Box <span id="box-number">1</span></h2>

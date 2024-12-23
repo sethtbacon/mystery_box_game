@@ -1,4 +1,4 @@
-]document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Initialize game variables
     let players = [
         { name: 'Player 1', points: 100, boxesWon: 0 },
@@ -14,14 +14,14 @@
     let totalBoxes = 14;
     let timer;
     let timeLeft = 60;
-    let isPaused = false;
+    let isPaused = true;
 
     // Function to start bidding round
     function startBiddingRound(box) {
         // Display box and start timer
         document.getElementById('box-number').innerText = box;
         document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
-        startTimer();
+        updateScoreboard();
     }
 
     // Function to start the timer
@@ -39,9 +39,16 @@
         }, 1000);
     }
 
-    // Function to pause the timer
-    function pauseTimer() {
-        isPaused = true;
+    // Function to toggle the timer
+    function toggleTimer() {
+        isPaused = !isPaused;
+        if (!isPaused) {
+            startTimer();
+            document.getElementById('start-pause-btn').innerText = 'Pause';
+        } else {
+            clearInterval(timer);
+            document.getElementById('start-pause-btn').innerText = 'Start';
+        }
     }
 
     // Function to stop the timer
@@ -49,6 +56,8 @@
         clearInterval(timer);
         timeLeft = 0;
         document.getElementById('countdown').innerText = timeLeft;
+        isPaused = true;
+        document.getElementById('start-pause-btn').innerText = 'Start';
     }
 
     // Function to reset the timer
@@ -56,13 +65,14 @@
         clearInterval(timer);
         timeLeft = 60;
         document.getElementById('countdown').innerText = timeLeft;
-        isPaused = false;
+        isPaused = true;
+        document.getElementById('start-pause-btn').innerText = 'Start';
     }
 
     // Function to update scoreboard
     function updateScoreboard() {
         let scoreboard = document.getElementById('scoreboard');
-        scoreboard.innerHTML = '';
+        scoreboard.innerHTML = '<h2>Scoreboard</h2>';
         players.forEach(player => {
             let playerInfo = document.createElement('div');
             playerInfo.innerText = `${player.name}: ${player.points} points, ${player.boxesWon} boxes won`;
@@ -71,12 +81,7 @@
     }
 
     // Event listeners for timer buttons
-    document.getElementById('start-btn').addEventListener('click', () => {
-        isPaused = false;
-        startTimer();
-    });
-
-    document.getElementById('pause-btn').addEventListener('click', pauseTimer);
+    document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
 
