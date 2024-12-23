@@ -39,7 +39,7 @@ h2 {
     width: 100%;
 }
 
-#left-column {
+#left-column, #middle-column, #right-column {
     display: flex;
     flex-direction: column;
     width: 30%;
