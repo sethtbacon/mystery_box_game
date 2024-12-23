@@ -11,9 +11,25 @@
         <h1 id="title">Christmas Mystery Box Bidding Game</h1>
         <button id="reset-game-btn" class="top-right">Reset Game</button> <!-- New Reset Game button -->
         <div id="content">
-            <div id="scoreboard">
-                <h2>Scoreboard</h2>
-                <!-- Scoreboard content will be dynamically generated -->
+            <div id="left-column">
+                <div id="scoreboard">
+                    <h2>Scoreboard</h2>
+                    <!-- Scoreboard content will be dynamically generated -->
+                </div>
+                <div id="box-winners">
+                    <h2>Box Winners</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Box Number</th>
+                                <th>Winner</th>
+                            </tr>
+                        </thead>
+                        <tbody id="box-winners-body">
+                            <!-- Box winners will be dynamically generated here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div id="timer">
                 <h2><span id="countdown">60</span></h2>
@@ -44,20 +60,6 @@
                     <p id="sold-box-info"></p>
                 </div>
             </div>
-        </div>
-        <div id="box-winners">
-            <h2>Box Winners</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Box Number</th>
-                        <th>Winner</th>
-                    </tr>
-                </thead>
-                <tbody id="box-winners-body">
-                    <!-- Box winners will be dynamically generated here -->
-                </tbody>
-            </table>
         </div>
         <div id="rules">
             <h2>Game Rules</h2>
