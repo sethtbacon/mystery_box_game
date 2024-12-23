@@ -1,0 +1,20 @@
+{
+  "name": "christmas-mystery-box-bidding-game",
+  "version": "1.0.0",
+  "description": "A Christmas Mystery Box Bidding Game for 7 participants with engaging gameplay and festive atmosphere.",
+  "main": "src/script.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "keywords": [
+    "christmas",
+    "bidding",
+    "game",
+    "mystery box"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

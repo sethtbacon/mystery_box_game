@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Mystery Box Bidding Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Christmas Mystery Box Bidding Game</h1>
+        <div id="scoreboard">
+            <h2>Scoreboard</h2>
+            <!-- Scoreboard content will be dynamically generated -->
+        </div>
+        <div id="timer">
+            <h2>Time Remaining: <span id="countdown">60</span> seconds</h2>
+            <button id="start-btn">Start</button>
+            <button id="pause-btn">Pause</button>
+            <button id="stop-btn">Stop</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+        <div id="box-display">
+            <h2>Mystery Box</h2>
+            <p id="box-hint">Hint about the box contents will be displayed here.</p>
+        </div>
+        <div id="rules">
+            <h2>Game Rules</h2>
+            <p>Each participant starts with 100 bidding points. Bids are written on paper and revealed at the end of the timer. Participants can win up to 2 boxes each. In case of a tie, a Christmas trivia question will be asked.</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
