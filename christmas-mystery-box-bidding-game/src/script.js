@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer;
     let timeLeft = 60;
     let isPaused = true;
+    let boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false }));
 
     // Function to start bidding round
     function startBiddingRound(box) {
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
         updateScoreboard();
         updateBoxButtons();
+        showSellBoxForm();
     }
 
     // Function to start the timer
@@ -92,18 +94,54 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateBoxButtons() {
         let boxButtonsContainer = document.getElementById('box-buttons-container');
         boxButtonsContainer.innerHTML = '';
-        for (let i = 1; i <= totalBoxes; i++) {
+        boxes.forEach(box => {
             let button = document.createElement('button');
-            button.innerText = `Box ${i}`;
+            button.innerText = box.sold ? `Sold ${box.number}` : `Box ${box.number}`;
             button.classList.add('box-button');
-            if (i === currentBox) {
+            if (box.number === currentBox) {
                 button.classList.add('selected');
             }
             button.addEventListener('click', () => {
-                currentBox = i;
-                startBiddingRound(currentBox);
+                if (!box.sold) {
+                    currentBox = box.number;
+                    startBiddingRound(currentBox);
+                }
             });
             boxButtonsContainer.appendChild(button);
+        });
+    }
+
+    // Function to show the sell box form
+    function showSellBoxForm() {
+        const sellBoxForm = document.getElementById('sell-box-form');
+        const winningBidderSelect = document.getElementById('winning-bidder');
+        winningBidderSelect.innerHTML = '';
+        players.forEach(player => {
+            let option = document.createElement('option');
+            option.value = player.name;
+            option.innerText = player.name;
+            winningBidderSelect.appendChild(option);
+        });
+        sellBoxForm.style.display = 'block';
+    }
+
+    // Function to mark a box as sold
+    function markBoxAsSold() {
+        const winningBidder = document.getElementById('winning-bidder').value;
+        const bidAmount = parseInt(document.getElementById('bid-amount').value, 10);
+        const player = players.find(p => p.name === winningBidder);
+        if (player && bidAmount > 0 && bidAmount <= player.points) {
+            player.points -= bidAmount;
+            player.boxesWon += 1;
+            const box = boxes.find(b => b.number === currentBox);
+            if (box) {
+                box.sold = true;
+                updateScoreboard();
+                updateBoxButtons();
+                document.getElementById('sell-box-form').style.display = 'none';
+            }
+        } else {
+            alert('Invalid bid amount or insufficient points.');
         }
     }
 
@@ -111,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
+    document.getElementById('mark-as-sold-btn').addEventListener('click', markBoxAsSold);
 
     // Start the game
     updateScoreboard();
