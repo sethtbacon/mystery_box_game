@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
             document.getElementById('sell-box-form').style.display = 'block';
             document.getElementById('sold-box-details').style.display = 'none';
+            showSellBoxForm();
         }
         updateScoreboard();
         updateBoxButtons();
