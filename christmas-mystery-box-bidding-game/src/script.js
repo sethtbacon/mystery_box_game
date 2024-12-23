@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer;
     let timeLeft = 60;
     let isPaused = true;
+    let boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false }));
 
     // Function to start bidding round
     function startBiddingRound(box) {
@@ -92,18 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateBoxButtons() {
         let boxButtonsContainer = document.getElementById('box-buttons-container');
         boxButtonsContainer.innerHTML = '';
-        for (let i = 1; i <= totalBoxes; i++) {
+        boxes.forEach(box => {
             let button = document.createElement('button');
-            button.innerText = `Box ${i}`;
+            button.innerText = box.sold ? `Sold ${box.number}` : `Box ${box.number}`;
             button.classList.add('box-button');
-            if (i === currentBox) {
+            if (box.number === currentBox) {
                 button.classList.add('selected');
             }
             button.addEventListener('click', () => {
-                currentBox = i;
-                startBiddingRound(currentBox);
+                if (!box.sold) {
+                    currentBox = box.number;
+                    startBiddingRound(currentBox);
+                }
             });
             boxButtonsContainer.appendChild(button);
+        });
+    }
+
+    // Function to mark a box as sold
+    function markBoxAsSold(boxNumber) {
+        const box = boxes.find(b => b.number === boxNumber);
+        if (box) {
+            box.sold = true;
+            updateBoxButtons();
         }
     }
 
@@ -111,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
+
+    // Example: Mark box 1 as sold after 5 seconds (for demonstration purposes)
+    setTimeout(() => markBoxAsSold(1), 5000);
 
     // Start the game
     updateScoreboard();
