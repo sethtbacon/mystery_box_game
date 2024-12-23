@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer;
     let timeLeft = 60;
     let isPaused = true;
-    let boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false }));
+    let boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false, winningBidder: null, bidAmount: null }));
 
     // Function to start bidding round
     function startBiddingRound(box) {
@@ -102,7 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.classList.add('selected');
             }
             button.addEventListener('click', () => {
-                if (!box.sold) {
+                if (box.sold) {
+                    alert(`Box ${box.number} was sold to ${box.winningBidder} for ${box.bidAmount} points.`);
+                } else {
                     currentBox = box.number;
                     startBiddingRound(currentBox);
                 }
@@ -136,6 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const box = boxes.find(b => b.number === currentBox);
             if (box) {
                 box.sold = true;
+                box.winningBidder = winningBidder;
+                box.bidAmount = bidAmount;
                 updateScoreboard();
                 updateBoxButtons();
                 document.getElementById('sell-box-form').style.display = 'none';
@@ -149,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetGame() {
         players = players.map(player => ({ ...player, points: 100, boxesWon: 0 }));
         currentBox = 1;
-        boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false }));
+        boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false, winningBidder: null, bidAmount: null }));
         resetTimer();
         updateScoreboard();
         updateBoxButtons();
