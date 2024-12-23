@@ -49,7 +49,7 @@ h2 {
 
 #countdown {
     font-size: 3em; /* Adjust the font size as needed */
-    color: #ff0000; /* Optional: Change the color */
+    color: green; /* Initial color set to green */
 }
 
 #box-buttons-container {

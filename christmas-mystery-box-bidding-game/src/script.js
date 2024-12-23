@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isPaused) {
                 timeLeft--;
                 document.getElementById('countdown').innerText = timeLeft;
+                if (timeLeft <= 15) {
+                    document.getElementById('countdown').style.color = 'red';
+                } else {
+                    document.getElementById('countdown').style.color = 'green';
+                }
                 if (timeLeft <= 0) {
                     clearInterval(timer);
                     // Handle end of bidding round
@@ -57,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timer);
         timeLeft = 0;
         document.getElementById('countdown').innerText = timeLeft;
+        document.getElementById('countdown').style.color = 'green';
         isPaused = true;
         document.getElementById('start-pause-btn').innerText = 'Start';
     }
@@ -66,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timer);
         timeLeft = 60;
         document.getElementById('countdown').innerText = timeLeft;
+        document.getElementById('countdown').style.color = 'green';
         isPaused = true;
         document.getElementById('start-pause-btn').innerText = 'Start';
     }
