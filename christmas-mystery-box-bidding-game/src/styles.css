@@ -31,13 +31,31 @@ h2 {
     font-size: 1.5em;
 }
 
-#scoreboard, #timer, #box-display, #rules {
-    margin: 10px 0;
+#content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#scoreboard, #timer, #box-display {
+    margin: 10px;
     padding: 10px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.9);
-    width: 80%;
+    flex: 1;
     text-align: center;
+}
+
+#scoreboard {
+    order: 1;
+}
+
+#timer {
+    order: 2;
+}
+
+#box-display {
+    order: 3;
 }
 
 button {
