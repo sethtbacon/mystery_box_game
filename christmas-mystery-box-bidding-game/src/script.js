@@ -19,12 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to start bidding round
     function startBiddingRound(box) {
-        // Display box and start timer
+        const selectedBox = boxes.find(b => b.number === box);
         document.getElementById('box-number').innerText = box;
-        document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
+        if (selectedBox.sold) {
+            document.getElementById('box-hint').innerText = `Box ${box} was sold to ${selectedBox.winningBidder} for ${selectedBox.bidAmount} points.`;
+            document.getElementById('sell-box-form').style.display = 'none';
+            document.getElementById('sold-box-details').style.display = 'block';
+            document.getElementById('sold-box-info').innerText = `Winning Bidder: ${selectedBox.winningBidder}, Bid Amount: ${selectedBox.bidAmount}`;
+        } else {
+            document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
+            document.getElementById('sell-box-form').style.display = 'block';
+            document.getElementById('sold-box-details').style.display = 'none';
+        }
         updateScoreboard();
         updateBoxButtons();
-        showSellBoxForm();
     }
 
     // Function to start the timer
@@ -102,12 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.classList.add('selected');
             }
             button.addEventListener('click', () => {
-                if (box.sold) {
-                    alert(`Box ${box.number} was sold to ${box.winningBidder} for ${box.bidAmount} points.`);
-                } else {
-                    currentBox = box.number;
-                    startBiddingRound(currentBox);
-                }
+                currentBox = box.number;
+                startBiddingRound(currentBox);
             });
             boxButtonsContainer.appendChild(button);
         });
@@ -143,6 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateScoreboard();
                 updateBoxButtons();
                 document.getElementById('sell-box-form').style.display = 'none';
+                document.getElementById('sold-box-details').style.display = 'block';
+                document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
             }
         } else {
             alert('Invalid bid amount or insufficient points.');
@@ -158,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateScoreboard();
         updateBoxButtons();
         document.getElementById('sell-box-form').style.display = 'none';
+        document.getElementById('sold-box-details').style.display = 'none';
     }
 
     // Event listeners for timer buttons
