@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+]document.addEventListener('DOMContentLoaded', () => {
     // Initialize game variables
     let players = [
         { name: 'Player 1', points: 100, boxesWon: 0 },
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentBox = 1;
+    let totalBoxes = 14;
     let timer;
     let timeLeft = 60;
     let isPaused = false;
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to start bidding round
     function startBiddingRound(box) {
         // Display box and start timer
-        document.getElementById('box-display').innerText = `Mystery Box ${box}`;
+        document.getElementById('box-number').innerText = box;
+        document.getElementById('box-hint').innerText = `Hint about the contents of Mystery Box ${box}`;
         startTimer();
     }
 
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listeners for buttons
+    // Event listeners for timer buttons
     document.getElementById('start-btn').addEventListener('click', () => {
         isPaused = false;
         startTimer();
@@ -77,6 +79,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('pause-btn').addEventListener('click', pauseTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
+
+    // Event listeners for box navigation buttons
+    document.getElementById('prev-box-btn').addEventListener('click', () => {
+        if (currentBox > 1) {
+            currentBox--;
+            startBiddingRound(currentBox);
+        }
+    });
+
+    document.getElementById('next-box-btn').addEventListener('click', () => {
+        if (currentBox < totalBoxes) {
+            currentBox++;
+            startBiddingRound(currentBox);
+        }
+    });
 
     // Start the game
     updateScoreboard();
