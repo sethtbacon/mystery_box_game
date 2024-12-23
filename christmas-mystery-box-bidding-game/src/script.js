@@ -145,11 +145,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to reset the game
+    function resetGame() {
+        players = players.map(player => ({ ...player, points: 100, boxesWon: 0 }));
+        currentBox = 1;
+        boxes = Array.from({ length: totalBoxes }, (_, i) => ({ number: i + 1, sold: false }));
+        resetTimer();
+        updateScoreboard();
+        updateBoxButtons();
+        document.getElementById('sell-box-form').style.display = 'none';
+    }
+
     // Event listeners for timer buttons
     document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
     document.getElementById('stop-btn').addEventListener('click', stopTimer);
     document.getElementById('reset-btn').addEventListener('click', resetTimer);
     document.getElementById('mark-as-sold-btn').addEventListener('click', markBoxAsSold);
+    document.getElementById('reset-game-btn').addEventListener('click', resetGame);
 
     // Start the game
     updateScoreboard();
