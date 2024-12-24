@@ -1,61 +1,105 @@
+/* General styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
-    background-image: url('https://tse4.mm.bing.net/th?id=OIG3.DfSmWCR5NCmI85zbHgnk&pid=ImgGn');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
 #game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    background-color: #fff;
     border-radius: 10px;
-    margin: 20px;
-    position: relative; /* Add relative positioning */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1#title {
-    color: #ff0000;
-    font-size: 2.5em;
-    text-shadow: 2px 2px #fff;
+h1, h2, h3 {
+    text-align: center;
 }
 
-h2 {
-    color: #008000;
-    font-size: 1.5em;
+#rules {
+    margin-bottom: 20px;
+}
+
+#rules ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#rules li {
+    background-color: #e0e0e0;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 #content {
     display: flex;
     justify-content: space-between;
-    width: 100%;
 }
 
 #left-column, #middle-column, #right-column {
-    display: flex;
-    flex-direction: column;
     width: 30%;
 }
 
-#scoreboard, #timer, #box-display, #box-winners {
-    margin: 10px;
-    padding: 10px;
+#timer, #scoreboard, #sell-box-form, #box-winners {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    text-align: center;
+    background-color: #f9f9f9;
 }
 
-#countdown {
-    font-size: 3em; /* Adjust the font size as needed */
-    color: green; /* Initial color set to green */
+#timer h2, #scoreboard h2, #sell-box-form h3, #box-winners h2 {
+    margin-top: 0;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+#button-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+#button-container button:hover {
+    background-color: #0056b3;
+}
+
+#sell-box-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#sell-box-form input, #sell-box-form select, #sell-box-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#sell-box-form button {
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+}
+
+#sell-box-form button:hover {
+    background-color: #218838;
+}
+
+#box-display {
+    text-align: center;
 }
 
 #box-buttons-container {
@@ -66,86 +110,33 @@ h2 {
 }
 
 .box-button {
-    margin: 5px;
     padding: 10px 20px;
+    margin: 5px;
     border: none;
     border-radius: 5px;
-    background-color: #008000;
+    background-color: #ffc107;
     color: #fff;
-    font-size: 1em;
     cursor: pointer;
-    flex: 1 0 21%; /* Adjust the width to fit 7 buttons per row */
-    max-width: 100px; /* Optional: Set a max width for the buttons */
 }
 
 .box-button.selected {
-    background-color: #ff0000;
+    background-color: #fd7e14;
 }
 
-button {
-    margin: 5px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #008000;
-    color: #fff;
-    font-size: 1em;
-    cursor: pointer;
+.box-button:hover {
+    background-color: #e0a800;
 }
 
-button:hover {
-    background-color: #006400;
-}
-
-#sell-box-form {
+#sold-box-details {
     margin-top: 20px;
-    text-align: left;
 }
 
-#sell-box-form label {
-    display: block;
-    margin-bottom: 5px;
+#sold-box-details h3 {
+    margin-top: 0;
 }
 
-#sell-box-form input,
-#sell-box-form select {
-    margin-bottom: 10px;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#reset-game-btn.top-right {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #008000; /* Green background */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
+#sold-box-details p {
+    background-color: #e0e0e0;
+    padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
-}
-
-#reset-game-btn.top-right:hover {
-    background-color: #006400; /* Darker green on hover */
-}
-
-#box-winners table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#box-winners th, #box-winners td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#box-winners th {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-#box-winners td {
-    text-align: center;
 }
