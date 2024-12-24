@@ -25,7 +25,8 @@
                     <h2>Scoreboard</h2>
                     <!-- Scoreboard content will be dynamically generated -->
                 </div>
-                <div id="box-winners">
+                <button id="toggle-box-winners-btn">Box Winners</button> <!-- New Button -->
+                <div id="box-winners" style="display: none;"> <!-- Initially hidden -->
                     <h2>Box Winners</h2>
                     <table>
                         <thead>
@@ -75,6 +76,15 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('toggle-box-winners-btn').addEventListener('click', function() {
+            var boxWinners = document.getElementById('box-winners');
+            if (boxWinners.style.display === 'none') {
+                boxWinners.style.display = 'block';
+            } else {
+                boxWinners.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
