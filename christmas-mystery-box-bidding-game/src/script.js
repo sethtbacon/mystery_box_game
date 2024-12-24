@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to stop the timer
     function stopTimer() {
         clearInterval(timer);
-        timeLeft = 0;
+        timeLeft = 60; // Reset the timer to 60 seconds
         document.getElementById('countdown').innerText = timeLeft;
         document.getElementById('countdown').style.color = 'green';
         isPaused = true;
