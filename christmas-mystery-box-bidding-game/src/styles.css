@@ -151,7 +151,7 @@ button:hover {
 }
 
 #scoreboard, #sell-box-form {
-    border: 2px solid #ccc;
+    /* border: 2px solid #ccc; */
     padding: 20px;
     margin: 20px 0;
     border-radius: 10px;
