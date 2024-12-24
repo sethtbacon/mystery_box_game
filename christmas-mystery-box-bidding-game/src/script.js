@@ -197,6 +197,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mark-as-sold-btn').addEventListener('click', markBoxAsSold);
     document.getElementById('reset-game-btn').addEventListener('click', resetGame);
 
+    // Event listener for toggling box winners visibility
+    document.getElementById('toggle-box-winners-btn').addEventListener('click', function() {
+        var boxWinners = document.getElementById('box-winners');
+        if (boxWinners.style.display === 'none') {
+            boxWinners.style.display = 'block';
+        } else {
+            boxWinners.style.display = 'none';
+        }
+    });
+
     // Start the game
     updateScoreboard();
     updateBoxWinners();
