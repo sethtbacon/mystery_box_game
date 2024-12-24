@@ -49,7 +49,21 @@
                         <button id="stop-btn">Stop</button>
                         <button id="reset-btn">Reset</button>
                     </div>
+                <div id="sell-box-form" style="display: none;">
+                    <h3>Sell Box</h3>
+                    <label for="winning-bidder">Winning Bidder:</label>
+                    <select id="winning-bidder">
+                        <!-- Options will be dynamically generated -->
+                    </select>
+                    <label for="bid-amount">Bid Amount:</label>
+                    <input type="number" id="bid-amount" min="1">
+                    <button id="mark-as-sold-btn">Mark as Sold</button>
                 </div>
+                <div id="sold-box-details" style="display: none;">
+                    <h3>Sold Box Details</h3>
+                    <p id="sold-box-info"></p>
+                </div>
+            </div>
             </div>
             <div id="right-column">
                 <div id="box-display">
@@ -57,20 +71,6 @@
                     <p id="box-hint">Hint about the box contents will be displayed here.</p>
                     <div id="box-buttons-container">
                         <!-- Box buttons will be dynamically generated here -->
-                    </div>
-                    <div id="sell-box-form" style="display: none;">
-                        <h3>Sell Box</h3>
-                        <label for="winning-bidder">Winning Bidder:</label>
-                        <select id="winning-bidder">
-                            <!-- Options will be dynamically generated -->
-                        </select>
-                        <label for="bid-amount">Bid Amount:</label>
-                        <input type="number" id="bid-amount" min="1">
-                        <button id="mark-as-sold-btn">Mark as Sold</button>
-                    </div>
-                    <div id="sold-box-details" style="display: none;">
-                        <h3>Sold Box Details</h3>
-                        <p id="sold-box-info"></p>
                     </div>
                 </div>
             </div>
