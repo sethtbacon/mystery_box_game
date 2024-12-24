@@ -149,3 +149,11 @@ button:hover {
 #box-winners td {
     text-align: center;
 }
+
+#scoreboard, #sell-box-form {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
