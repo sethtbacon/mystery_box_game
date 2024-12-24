@@ -24,21 +24,6 @@
                     <h2>Scoreboard</h2>
                     <!-- Scoreboard content will be dynamically generated -->
                 </div>
-                <button id="toggle-box-winners-btn">Box Winners</button> <!-- New Button -->
-                <div id="box-winners" style="display: none;"> <!-- Initially hidden -->
-                    <h2>Box Winners</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Box Number</th>
-                                <th>Winner</th>
-                            </tr>
-                        </thead>
-                        <tbody id="box-winners-body">
-                            <!-- Box winners will be dynamically generated here -->
-                        </tbody>
-                    </table>
-                </div>
             </div>
             <div id="middle-column">
                 <div id="timer">
@@ -79,6 +64,7 @@
             <button id="settings-btn">Settings</button>
             <button id="players-btn">Players</button>
             <button id="edit-boxes-btn">Edit Boxes</button>
+            <button id="toggle-box-winners-btn">Box Winners</button> <!-- Moved Button -->
         </div>
         <div id="settings-modal" class="modal">
             <div class="modal-content">
@@ -115,11 +101,11 @@
                 </form>
             </div>
         </div>
-        <div id="edit-boxes-modal" class="modal">
+        <div id="boxes-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Edit Box Descriptions</h2>
-                <form id="edit-boxes-form">
+                <form id="boxes-form">
                     <table id="box-descriptions-table">
                         <thead>
                             <tr>
@@ -133,6 +119,23 @@
                     </table>
                     <button type="submit">Save Box Descriptions</button>
                 </form>
+            </div>
+        </div>
+        <div id="box-winners-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Box Winners</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Box Number</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody id="box-winners-body">
+                        <!-- Box winners will be dynamically generated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

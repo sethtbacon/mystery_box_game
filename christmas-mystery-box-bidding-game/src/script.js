@@ -3,7 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let numBoxes = 14;
     let defaultTimer = 60;
     let playerNames = [];
-    let boxDescriptions = Array.from({ length: numBoxes }, (_, i) => `Description for Box ${i + 1}`);
+    let boxDescriptions = [];
+
+    // Load box descriptions from JSON file
+    fetch('assets/box-descriptions.json')
+        .then(response => response.json())
+        .then(data => {
+            boxDescriptions = data.descriptions;
+            initializeGame();
+        })
+        .catch(error => {
+            console.error('Error loading box descriptions:', error);
+            boxDescriptions = Array.from({ length: numBoxes }, (_, i) => `Description for Box ${i + 1}`);
+            initializeGame();
+        });
 
     function initializeGame() {
         // Initialize game variables
@@ -165,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
                 }
             } else {
+                console.error('Invalid bid amount or insufficient points.', { player, bidAmount });
                 alert('Invalid bid amount or insufficient points.');
             }
         }
@@ -199,12 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Event listener for toggling box winners visibility
         document.getElementById('toggle-box-winners-btn').addEventListener('click', function() {
-            var boxWinners = document.getElementById('box-winners');
-            if (boxWinners.style.display === 'none') {
-                boxWinners.style.display = 'block';
-            } else {
-                boxWinners.style.display = 'none';
-            }
+            var boxWinnersModal = document.getElementById('box-winners-modal');
+            boxWinnersModal.style.display = 'block';
         });
 
         // Start the game
@@ -223,6 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const playersModal = document.getElementById('players-modal');
     const editBoxesBtn = document.getElementById('edit-boxes-btn');
     const editBoxesModal = document.getElementById('boxes-modal');
+    const boxWinnersBtn = document.getElementById('toggle-box-winners-btn');
+    const boxWinnersModal = document.getElementById('box-winners-modal');
     const closeBtns = document.getElementsByClassName('close');
     const settingsForm = document.getElementById('settings-form');
     const playersForm = document.getElementById('players-form');
@@ -245,11 +257,16 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBoxDescriptionInputs();
     }
 
+    boxWinnersBtn.onclick = function() {
+        boxWinnersModal.style.display = 'block';
+    }
+
     Array.from(closeBtns).forEach(btn => {
         btn.onclick = function() {
             settingsModal.style.display = 'none';
             playersModal.style.display = 'none';
             editBoxesModal.style.display = 'none';
+            boxWinnersModal.style.display = 'none';
         }
     });
 
@@ -262,6 +279,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (event.target == editBoxesModal) {
             editBoxesModal.style.display = 'none';
+        }
+        if (event.target == boxWinnersModal) {
+            boxWinnersModal.style.display = 'none';
+        }
+    }
+
+    window.onkeydown = function(event) {
+        if (event.key === 'Escape') {
+            settingsModal.style.display = 'none';
+            playersModal.style.display = 'none';
+            editBoxesModal.style.display = 'none';
+            boxWinnersModal.style.display = 'none';
         }
     }
 
@@ -296,12 +325,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const boxNumberCell = document.createElement('td');
             boxNumberCell.innerText = `Box ${i + 1}`;
             const boxDescriptionCell = document.createElement('td');
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.id = `box-description-${i}`;
-            input.name = `box-description-${i}`;
-            input.value = boxDescriptions[i];
-            boxDescriptionCell.appendChild(input);
+            const textarea = document.createElement('textarea');
+            textarea.id = `box-description-${i}`;
+            textarea.name = `box-description-${i}`;
+            textarea.value = boxDescriptions[i];
+            boxDescriptionCell.appendChild(textarea);
             row.appendChild(boxNumberCell);
             row.appendChild(boxDescriptionCell);
             boxDescriptionsContainer.appendChild(row);
@@ -320,8 +348,8 @@ document.addEventListener('DOMContentLoaded', () => {
     playersForm.onsubmit = function(event) {
         event.preventDefault();
         playerNames = Array.from({ length: numPlayers }, (_, i) => document.getElementById(`player-name-${i}`).value);
+        initializeGame(); // Reinitialize the game with updated player names
         playersModal.style.display = 'none';
-        initializeGame();
     }
 
     editBoxesForm.onsubmit = function(event) {

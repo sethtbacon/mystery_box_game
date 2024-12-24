@@ -33,6 +33,15 @@ h2 {
     font-size: 1.5em;
 }
 
+#rules ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#rules li {
+    margin: 10px 0;
+}
+
 #content {
     display: flex;
     justify-content: space-between;
@@ -153,7 +162,8 @@ button:hover {
 #reset-game-btn,
 #settings-btn,
 #players-btn,
-#edit-boxes-btn {
+#edit-boxes-btn,
+#toggle-box-winners-btn {
     background-color: #008000; /* Green background */
     color: #fff;
     padding: 10px 20px;
@@ -165,7 +175,8 @@ button:hover {
 #reset-game-btn:hover,
 #settings-btn:hover,
 #players-btn:hover,
-#edit-boxes-btn:hover {
+#edit-boxes-btn:hover,
+#toggle-box-winners-btn:hover {
     background-color: #006400; /* Darker green on hover */
 }
 
@@ -250,4 +261,36 @@ button:hover {
 #player-names-table th,
 #box-descriptions-table th {
     background-color: #f2f2f2;
+}
+
+/* Textarea Styles */
+textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Box Winners Modal Styles */
+#box-winners-modal .modal-content {
+    width: 60%;
+}
+
+#box-winners-modal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#box-winners-modal th, #box-winners-modal td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#box-winners-modal th {
+    background-color: #4CAF50;
+    color: white;
 }
