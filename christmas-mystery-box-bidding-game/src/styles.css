@@ -45,12 +45,37 @@ h2 {
     width: 30%;
 }
 
-#scoreboard, #timer, #box-display, #box-winners {
+#scoreboard, #timer, #box-display, #sell-box-form {
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.9);
     text-align: center;
+}
+
+#box-winners {
+    border: 2px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#box-winners table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#box-winners th, #box-winners td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+#box-winners th {
+    background-color: #f2f2f2;
 }
 
 #countdown {
@@ -115,10 +140,20 @@ button:hover {
     box-sizing: border-box;
 }
 
-#reset-game-btn.top-right {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+#bottom-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#bottom-buttons button {
+    margin: 0 10px;
+}
+
+#reset-game-btn,
+#settings-btn,
+#players-btn,
+#edit-boxes-btn {
     background-color: #008000; /* Green background */
     color: #fff;
     padding: 10px 20px;
@@ -127,33 +162,92 @@ button:hover {
     cursor: pointer;
 }
 
-#reset-game-btn.top-right:hover {
+#reset-game-btn:hover,
+#settings-btn:hover,
+#players-btn:hover,
+#edit-boxes-btn:hover {
     background-color: #006400; /* Darker green on hover */
 }
 
-#box-winners table {
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#settings-form label,
+#settings-form input,
+#settings-form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#settings-form input,
+#settings-form button {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#settings-form button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#settings-form button:hover {
+    background-color: #218838;
+}
+
+#player-names-table,
+#box-descriptions-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
 }
 
-#box-winners th, #box-winners td {
-    border: 1px solid #ddd;
-    padding: 8px;
+#player-names-table th, #player-names-table td,
+#box-descriptions-table th, #box-descriptions-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
 }
 
-#box-winners th {
+#player-names-table th,
+#box-descriptions-table th {
     background-color: #f2f2f2;
-    color: #333;
-}
-
-#box-winners td {
-    text-align: center;
-}
-
-#scoreboard, #sell-box-form {
-    /* border: 2px solid #ccc; */
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 10px;
-    background-color: #f9f9f9;
 }

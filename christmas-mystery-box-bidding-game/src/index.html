@@ -9,7 +9,6 @@
 <body>
     <div id="game-container">
         <h1 id="title">Christmas Mystery Box Bidding Game</h1>
-        <button id="reset-game-btn" class="top-right">Reset Game</button> <!-- New Reset Game button -->
         <div id="rules">
             <h2>Game Rules</h2>
             <ul>
@@ -73,6 +72,67 @@
                         <p id="sold-box-info"></p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="bottom-buttons">
+            <button id="reset-game-btn">Reset Game</button>
+            <button id="settings-btn">Settings</button>
+            <button id="players-btn">Players</button>
+            <button id="edit-boxes-btn">Edit Boxes</button>
+        </div>
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Settings</h2>
+                <form id="settings-form">
+                    <label for="num-players">Number of Players:</label>
+                    <input type="number" id="num-players" name="num-players" min="1" value="7">
+                    <label for="num-boxes">Number of Boxes:</label>
+                    <input type="number" id="num-boxes" name="num-boxes" min="1" value="14">
+                    <label for="default-timer">Default Timer (seconds):</label>
+                    <input type="number" id="default-timer" name="default-timer" min="1" value="60">
+                    <button type="submit">Save Settings</button>
+                </form>
+            </div>
+        </div>
+        <div id="players-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Player Names</h2>
+                <form id="players-form">
+                    <table id="player-names-table">
+                        <thead>
+                            <tr>
+                                <th>Player Number</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="player-names-container">
+                            <!-- Player name inputs will be dynamically generated here -->
+                        </tbody>
+                    </table>
+                    <button type="submit">Save Player Names</button>
+                </form>
+            </div>
+        </div>
+        <div id="edit-boxes-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Box Descriptions</h2>
+                <form id="edit-boxes-form">
+                    <table id="box-descriptions-table">
+                        <thead>
+                            <tr>
+                                <th>Box Number</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="box-descriptions-container">
+                            <!-- Box description inputs will be dynamically generated here -->
+                        </tbody>
+                    </table>
+                    <button type="submit">Save Box Descriptions</button>
+                </form>
             </div>
         </div>
     </div>
