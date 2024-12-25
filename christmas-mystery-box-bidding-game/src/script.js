@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let playerNames = [];
     let boxDescriptions = [];
     let players = [];
+    let triviaQuestions = [];
     let isMarkingBoxAsSold = false; // Flag to prevent multiple calls
 
     // Load box descriptions from JSON file
@@ -24,6 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error loading box descriptions:', error);
             boxDescriptions = Array.from({ length: numBoxes }, (_, i) => `Description for Box ${i + 1}`);
             initializeGame();
+        });
+
+    // Load trivia questions from JSON file
+    fetch('../assets/trivia-questions.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Trivia questions loaded:', data.questions);
+            triviaQuestions = data.questions;
+        })
+        .catch(error => {
+            console.error('Error loading trivia questions:', error);
         });
 
     function initializeGame() {
@@ -141,28 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            let scoreboard = document.getElementById('scoreboard');
-            scoreboard.innerHTML = '<h2>Scoreboard</h2>';
-            let table = document.createElement('table');
-            table.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Points</th>
-                        <th>Boxes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${players.map(player => `
-                        <tr>
-                            <td>${player.name}</td>
-                            <td>${player.points}</td>
-                            <td>${player.boxesWon}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            `;
-            scoreboard.appendChild(table);
+            let scoreboard = document.getElementById('scoreboard-table').getElementsByTagName('tbody')[0];
+            scoreboard.innerHTML = '';
+            players.forEach(player => {
+                let row = scoreboard.insertRow();
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                cell1.innerHTML = player.name;
+                cell2.innerHTML = player.points;
+                cell3.innerHTML = player.boxesWon;
+            });
         }
 
         // Function to update box buttons
@@ -228,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 box.bidAmount = bidAmount;
                 updateScoreboard();
                 updateBoxButtons();
+                updateBoxWinners();
                 document.getElementById('sell-box-form').style.display = 'none';
                 document.getElementById('sold-box-details').style.display = 'block';
                 document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
@@ -236,9 +243,36 @@ document.addEventListener('DOMContentLoaded', () => {
             isMarkingBoxAsSold = false;
         }
 
+        // Function to update box winners
+        function updateBoxWinners() {
+            console.log('updateBoxWinners called');
+            let boxWinnersBody = document.getElementById('box-winners-body');
+            boxWinnersBody.innerHTML = '';
+            boxes.forEach(box => {
+                if (box.sold) {
+                    let row = boxWinnersBody.insertRow();
+                    let cell1 = row.insertCell(0);
+                    let cell2 = row.insertCell(1);
+                    cell1.innerHTML = box.number;
+                    cell2.innerHTML = box.winningBidder;
+                }
+            });
+        }
+
         // Function to reset the game
         function resetGame() {
             location.reload(); // Refresh the page to prompt for the number of players and boxes again
+        }
+
+        // Function to show a trivia question
+        function showTriviaQuestion() {
+            if (triviaQuestions.length === 0) {
+                alert('No trivia questions available.');
+                return;
+            }
+            const randomIndex = Math.floor(Math.random() * triviaQuestions.length);
+            const question = triviaQuestions[randomIndex];
+            alert(`Trivia Question: ${question.question}\nAnswer: ${question.answer}`);
         }
 
         // Event listeners for timer buttons
@@ -254,6 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.getElementById('reset-game-btn').addEventListener('click', resetGame);
+
+        // Add event listener for trivia button
+        const triviaBtn = document.getElementById('trivia-btn');
+        if (triviaBtn) {
+            triviaBtn.addEventListener('click', showTriviaQuestion);
+        }
 
         // Start the game
         updateScoreboard();
