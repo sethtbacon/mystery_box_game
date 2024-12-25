@@ -4,11 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let defaultTimer = 60;
     let playerNames = [];
     let boxDescriptions = [];
+    let players = [];
+    let isMarkingBoxAsSold = false; // Flag to prevent multiple calls
 
     // Load box descriptions from JSON file
-    fetch('assets/box-descriptions.json')
-        .then(response => response.json())
+    fetch('../assets/box-descriptions.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Box descriptions loaded:', data.descriptions);
             boxDescriptions = data.descriptions;
             initializeGame();
         })
@@ -20,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeGame() {
         // Initialize game variables
-        let players = Array.from({ length: numPlayers }, (_, i) => ({
+        players = Array.from({ length: numPlayers }, (_, i) => ({
             name: playerNames[i] || `Player ${i + 1}`,
             points: 100,
             boxesWon: 0
@@ -38,8 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
             description: boxDescriptions[i]
         }));
 
+        console.log('Game initialized with boxes:', boxes);
+        console.log('Players:', players);
+
         // Function to start bidding round
         function startBiddingRound(box) {
+            console.log('startBiddingRound called for box:', box);
             const selectedBox = boxes.find(b => b.number === box);
             document.getElementById('box-number').innerText = box;
             if (selectedBox.sold) {
@@ -111,13 +123,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to update scoreboard
         function updateScoreboard() {
+            console.log('updateScoreboard called');
+            // Reset player points and boxes won
+            players.forEach(player => {
+                player.points = 100;
+                player.boxesWon = 0;
+            });
+
+            // Update player points and boxes won based on the boxes array
+            boxes.forEach(box => {
+                if (box.sold) {
+                    const player = players.find(p => p.name === box.winningBidder);
+                    if (player) {
+                        player.points -= box.bidAmount;
+                        player.boxesWon += 1;
+                    }
+                }
+            });
+
             let scoreboard = document.getElementById('scoreboard');
             scoreboard.innerHTML = '<h2>Scoreboard</h2>';
-            players.forEach(player => {
-                let playerInfo = document.createElement('div');
-                playerInfo.innerText = `${player.name}: ${player.points} points, ${player.boxesWon} boxes`;
-                scoreboard.appendChild(playerInfo);
-            });
+            let table = document.createElement('table');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Points</th>
+                        <th>Boxes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${players.map(player => `
+                        <tr>
+                            <td>${player.name}</td>
+                            <td>${player.points}</td>
+                            <td>${player.boxesWon}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+            scoreboard.appendChild(table);
         }
 
         // Function to update box buttons
@@ -155,48 +200,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to mark a box as sold
         function markBoxAsSold() {
+            if (isMarkingBoxAsSold) return; // Prevent multiple calls
+            isMarkingBoxAsSold = true;
+
             const winningBidder = document.getElementById('winning-bidder').value;
             const bidAmount = parseInt(document.getElementById('bid-amount').value, 10);
             const player = players.find(p => p.name === winningBidder);
-            if (player && bidAmount > 0 && bidAmount <= player.points) {
-                if (player.boxesWon >= 2) {
-                    alert(`${player.name} has already won 2 boxes and cannot win more.`);
-                    return;
-                }
-                player.points -= bidAmount;
-                player.boxesWon += 1;
-                const box = boxes.find(b => b.number === currentBox);
-                if (box) {
-                    box.sold = true;
-                    box.winningBidder = winningBidder;
-                    box.bidAmount = bidAmount;
-                    updateScoreboard();
-                    updateBoxButtons();
-                    updateBoxWinners();
-                    document.getElementById('sell-box-form').style.display = 'none';
-                    document.getElementById('sold-box-details').style.display = 'block';
-                    document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
-                }
-            } else {
-                console.error('Invalid bid amount or insufficient points.', { player, bidAmount });
-                alert('Invalid bid amount or insufficient points.');
-            }
-        }
 
-        // Function to update the box winners table
-        function updateBoxWinners() {
-            const boxWinnersBody = document.getElementById('box-winners-body');
-            boxWinnersBody.innerHTML = '';
-            boxes.forEach(box => {
-                const row = document.createElement('tr');
-                const boxNumberCell = document.createElement('td');
-                const winnerCell = document.createElement('td');
-                boxNumberCell.innerText = `Box ${box.number}`;
-                winnerCell.innerText = box.sold ? box.winningBidder : '';
-                row.appendChild(boxNumberCell);
-                row.appendChild(winnerCell);
-                boxWinnersBody.appendChild(row);
-            });
+            if (!player) {
+                alert('Invalid player selected.');
+                isMarkingBoxAsSold = false;
+                return;
+            }
+
+            if (bidAmount <= 0 || bidAmount > player.points) {
+                alert('Invalid bid amount or insufficient points.');
+                isMarkingBoxAsSold = false;
+                return;
+            }
+
+            player.points -= bidAmount;
+            player.boxesWon += 1;
+            const box = boxes.find(b => b.number === currentBox);
+            if (box) {
+                box.sold = true;
+                box.winningBidder = winningBidder;
+                box.bidAmount = bidAmount;
+                updateScoreboard();
+                updateBoxButtons();
+                document.getElementById('sell-box-form').style.display = 'none';
+                document.getElementById('sold-box-details').style.display = 'block';
+                document.getElementById('sold-box-info').innerText = `Winning Bidder: ${winningBidder}, Bid Amount: ${bidAmount}`;
+            }
+
+            isMarkingBoxAsSold = false;
         }
 
         // Function to reset the game
@@ -208,18 +245,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('start-pause-btn').addEventListener('click', toggleTimer);
         document.getElementById('stop-btn').addEventListener('click', stopTimer);
         document.getElementById('reset-btn').addEventListener('click', resetTimer);
-        document.getElementById('mark-as-sold-btn').addEventListener('click', markBoxAsSold);
-        document.getElementById('reset-game-btn').addEventListener('click', resetGame);
 
-        // Event listener for toggling box winners visibility
-        document.getElementById('toggle-box-winners-btn').addEventListener('click', function() {
-            var boxWinnersModal = document.getElementById('box-winners-modal');
-            boxWinnersModal.style.display = 'block';
-        });
+        // Ensure the event listener is only attached once
+        const markAsSoldBtn = document.getElementById('mark-as-sold-btn');
+        if (markAsSoldBtn) {
+            markAsSoldBtn.removeEventListener('click', markBoxAsSold);
+            markAsSoldBtn.addEventListener('click', markBoxAsSold);
+        }
+
+        document.getElementById('reset-game-btn').addEventListener('click', resetGame);
 
         // Start the game
         updateScoreboard();
-        updateBoxWinners();
         startBiddingRound(currentBox);
     }
 
@@ -348,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playersForm.onsubmit = function(event) {
         event.preventDefault();
         playerNames = Array.from({ length: numPlayers }, (_, i) => document.getElementById(`player-name-${i}`).value);
+        console.log('Updated player names:', playerNames);
         initializeGame(); // Reinitialize the game with updated player names
         playersModal.style.display = 'none';
     }

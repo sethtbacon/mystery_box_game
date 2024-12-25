@@ -48,18 +48,28 @@ h2 {
     width: 100%;
 }
 
-#left-column, #middle-column, #right-column {
+#left-column, #right-column {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 25%; /* Decrease width of left and right columns */
 }
 
-#scoreboard, #timer, #box-display, #sell-box-form {
+#middle-column {
+    display: flex;
+    flex-direction: column;
+    width: 50%; /* Increase width of middle column */
+}
+
+#scoreboard, #timer, #box-display, #sell-box-form, #description-box {
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.9);
     text-align: center;
+}
+
+#description-box {
+    font-size: 1.2em; /* Adjust the font size as needed */
 }
 
 #box-winners {
@@ -293,4 +303,12 @@ textarea {
 #box-winners-modal th {
     background-color: #4CAF50;
     color: white;
+}
+
+#scoreboard {
+    margin: 10px auto; /* Center horizontally */
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
 }

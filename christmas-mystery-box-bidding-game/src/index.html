@@ -22,16 +22,43 @@
             <div id="left-column">
                 <div id="scoreboard">
                     <h2>Scoreboard</h2>
-                    <!-- Scoreboard content will be dynamically generated -->
+                    <table id="scoreboard-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                                <th>Boxes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Scoreboard content will be dynamically generated -->
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div id="middle-column">
                 <div id="timer">
                     <h2><span id="countdown">60</span></h2>
                     <div id="button-container">
                         <button id="start-pause-btn">Start</button>
                         <button id="stop-btn">Stop</button>
                         <button id="reset-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div id="middle-column">
+                <div id="description-box">
+                    <h2>Description</h2>
+                    <p id="box-hint">Hint about the box contents will be displayed here.</p>
+                </div>
+            </div>
+            <div id="right-column">
+                <div id="box-display">
+                    <h2>Mystery Box <span id="box-number">1</span></h2>
+                    <div id="box-buttons-container">
+                        <!-- Box buttons will be dynamically generated here -->
+                    </div>
+                    <div id="sold-box-details" style="display: none;">
+                        <h3>Sold Box Details</h3>
+                        <p id="sold-box-info"></p>
                     </div>
                 </div>
                 <div id="sell-box-form" style="display: none;">
@@ -45,26 +72,13 @@
                     <button id="mark-as-sold-btn">Mark as Sold</button>
                 </div>
             </div>
-            <div id="right-column">
-                <div id="box-display">
-                    <h2>Mystery Box <span id="box-number">1</span></h2>
-                    <p id="box-hint">Hint about the box contents will be displayed here.</p>
-                    <div id="box-buttons-container">
-                        <!-- Box buttons will be dynamically generated here -->
-                    </div>
-                    <div id="sold-box-details" style="display: none;">
-                        <h3>Sold Box Details</h3>
-                        <p id="sold-box-info"></p>
-                    </div>
-                </div>
-            </div>
         </div>
         <div id="bottom-buttons">
             <button id="reset-game-btn">Reset Game</button>
             <button id="settings-btn">Settings</button>
             <button id="players-btn">Players</button>
             <button id="edit-boxes-btn">Edit Boxes</button>
-            <button id="toggle-box-winners-btn">Box Winners</button> <!-- Moved Button -->
+            <button id="toggle-box-winners-btn">Box Winners</button>
         </div>
         <div id="settings-modal" class="modal">
             <div class="modal-content">
