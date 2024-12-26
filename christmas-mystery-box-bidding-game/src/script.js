@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            console.log('Trivia questions loaded:', data.questions);
-            triviaQuestions = data.questions;
+            console.log('Trivia questions loaded:', data.trivia);
+            triviaQuestions = data.trivia;
         })
         .catch(error => {
             console.error('Error loading trivia questions:', error);
@@ -272,7 +272,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const randomIndex = Math.floor(Math.random() * triviaQuestions.length);
             const question = triviaQuestions[randomIndex];
-            alert(`Trivia Question: ${question.question}\nAnswer: ${question.answer}`);
+            document.getElementById('trivia-question').innerText = question.question;
+            document.getElementById('trivia-answer').innerText = question.answer;
+            document.getElementById('trivia-answer').style.display = 'none';
+            document.getElementById('trivia-modal').style.display = 'block';
+        }
+
+        // Function to toggle the display of the trivia answer
+        function toggleTriviaAnswer() {
+            const triviaAnswer = document.getElementById('trivia-answer');
+            if (triviaAnswer.style.display === 'none') {
+                triviaAnswer.style.display = 'block';
+            } else {
+                triviaAnswer.style.display = 'none';
+            }
         }
 
         // Event listeners for timer buttons
@@ -293,6 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const triviaBtn = document.getElementById('trivia-btn');
         if (triviaBtn) {
             triviaBtn.addEventListener('click', showTriviaQuestion);
+        }
+
+        // Add event listener for show answer button
+        const showAnswerBtn = document.getElementById('show-answer-btn');
+        if (showAnswerBtn) {
+            showAnswerBtn.addEventListener('click', toggleTriviaAnswer);
         }
 
         // Start the game
@@ -344,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playersModal.style.display = 'none';
             editBoxesModal.style.display = 'none';
             boxWinnersModal.style.display = 'none';
+            document.getElementById('trivia-modal').style.display = 'none';
         }
     });
 
@@ -360,6 +380,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == boxWinnersModal) {
             boxWinnersModal.style.display = 'none';
         }
+        if (event.target == document.getElementById('trivia-modal')) {
+            document.getElementById('trivia-modal').style.display = 'none';
+        }
     }
 
     window.onkeydown = function(event) {
@@ -368,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playersModal.style.display = 'none';
             editBoxesModal.style.display = 'none';
             boxWinnersModal.style.display = 'none';
+            document.getElementById('trivia-modal').style.display = 'none';
         }
     }
 
